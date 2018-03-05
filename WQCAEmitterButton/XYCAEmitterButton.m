@@ -17,7 +17,7 @@
 
 @implementation XYCAEmitterButton
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self.layer addSublayer:self.explosionLayer];
@@ -25,7 +25,7 @@
     return self;
 }
 
--(void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     // 发射源位置
     self.explosionLayer.position = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
@@ -34,7 +34,7 @@
 /**
  * 外部添加粒子发散的动画
  */
-- (void)addAnimation{
+- (void)addAnimation {
     // 通过关键帧动画实现缩放
     CAKeyframeAnimation * animation = [CAKeyframeAnimation animation];
     animation.keyPath = @"transform.scale";
@@ -51,7 +51,7 @@
 /**
  * 开始动画
  */
-- (void)startAnimation{
+- (void)startAnimation {
     // 用KVC设置颗粒个数
     int value = (arc4random() % 400) + 400;
     [self.explosionLayer setValue:[NSNumber numberWithInteger:value] forKeyPath:@"emitterCells.explosionCell.birthRate"];
@@ -66,14 +66,14 @@
 /**
  * 动画结束
  */
-- (void)stopAnimation{
+- (void)stopAnimation {
     // 用KVC设置颗粒个数
     [self.explosionLayer setValue:@0 forKeyPath:@"emitterCells.explosionCell.birthRate"];
     [self.explosionLayer removeAllAnimations];
 }
 
 // 1. 粒子
-- (CAEmitterCell *)explosionCell{
+- (CAEmitterCell *)explosionCell {
     if (!_explosionCell) {
         _explosionCell = [CAEmitterCell emitterCell];
         _explosionCell.name = @"explosionCell";
@@ -91,7 +91,7 @@
 }
 
 //2. 发射源
-- (CAEmitterLayer *)explosionLayer{
+- (CAEmitterLayer *)explosionLayer {
     if (!_explosionLayer) {
         _explosionLayer = [CAEmitterLayer layer];
         _explosionLayer.emitterSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height);
